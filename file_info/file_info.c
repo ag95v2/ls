@@ -1,4 +1,3 @@
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <time.h>
@@ -26,29 +25,21 @@ int	ft_printf(const char *format, ...)
 	return (ret);
 }
 
-char	*ft_strdup(char *s)
-{
-	return (strdup(s));
-}
 
-char	*ft_strcpy(char *dst, const char *src)
-{
-	return (strcpy(dst, src));
-}
 
 char	file_type_char(struct stat sb)
 {
-	if ((sb.st_mode & S_IFMT) == S_IFBLK) 
+	if ((sb.st_mode & S_IFMT) == S_IFBLK)
 		return('b');
-	else if ((sb.st_mode & S_IFMT) == S_IFCHR) 
+	else if ((sb.st_mode & S_IFMT) == S_IFCHR)
 		return('c');
-	else if ((sb.st_mode & S_IFMT) == S_IFDIR) 
+	else if ((sb.st_mode & S_IFMT) == S_IFDIR)
 		return('d');
-	else if ((sb.st_mode & S_IFMT) == S_IFIFO) 
+	else if ((sb.st_mode & S_IFMT) == S_IFIFO)
 		return('p');
-	else if ((sb.st_mode & S_IFMT) == S_IFLNK) 
+	else if ((sb.st_mode & S_IFMT) == S_IFLNK)
 		return('l');
-	else if ((sb.st_mode & S_IFMT) == S_IFSOCK) 
+	else if ((sb.st_mode & S_IFMT) == S_IFSOCK)
 		return('s');
 	else
 		return('-');
@@ -117,10 +108,10 @@ void	remove_weekday(char *s)
 	*s = 0;
 }
 
-/* 
-**	Remove weekday; 
+/*
+**	Remove weekday;
 **	Remove '\n';
-**	Remove seconds; 
+**	Remove seconds;
 **	If is_old, put year instead of hr and min
 */
 
@@ -139,7 +130,7 @@ void	format_time(char *s, int is_old)
 	}
 	*(s - 1) = 0;
 	if (!is_old)
-		return ;	
+		return ;
 	ft_strcpy(s - 6,s + 3);
 }
 
@@ -168,7 +159,7 @@ int		fill_file_info(char *path, t_file_info *fi)
 {
 	struct stat sb;
 
-	if (stat(path, &sb) == -1) 
+	if (stat(path, &sb) == -1)
 	{
 		perror("stat");
 		return (1);
@@ -190,7 +181,7 @@ int		print_file_info(char *path)
 
 	if (fill_file_info(path, &fi) == 1)
 		return (1);
-	ft_printf("%c",fi.type);
+	ft_printf("%c", fi.type);
 	ft_printf("%s ",fi.perms);
 	ft_printf("%d ",fi.nlinks);
 	ft_printf("%s ",fi.owner);
