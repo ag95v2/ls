@@ -172,10 +172,10 @@ int		fill_file_info(char *path, t_file_info *fi)
 	fill_time(sb, fi);
 	if (!(fi->pathname = ft_strdup(path)))
 		return (1);
-	if (fi->type == 'b' || fi.type == 'c')
+	if (fi->type == 'b' || fi->type == 'c')
 	{
-		fi.major = major(sb.st_rdev);
-		fi.min = minor(sb.st_rdev);
+		fi->major = major(sb.st_rdev);
+		fi->minor = minor(sb.st_rdev);
 	}
 	return (0);
 }
