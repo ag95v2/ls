@@ -31,25 +31,30 @@ void print_files(const t_list *files)
 
 t_dir *get_dir_content(const DIR *dir)
 {
-	t_dir *dir_data;
-	struct dirent *cur_file;
+	if (dir || !dir)
+		return (NULL);
+	return (NULL);
+	// t_dir *dir_data;
+	// struct dirent *cur_file;
 
-	dir_data = NULL;
-	while ((cur_file = readdir(dir)))
-	{
+	// dir_data = NULL;
+	// while ((cur_file = readdir(dir)))
+	// {
 
-	}
+	// }
 }
 
 void print_dirs(const t_list *dirs)
 {
-	DIR *dir;
+	if (dirs || !dirs)
+		return ;
+	// DIR *dir;
 
-	while (dirs)
-	{
-		dir = opendir(dirs->content);
-		get_dir_content()
-	}
+	// while (dirs)
+	// {
+	// 	dir = opendir(dirs->content);
+	// 	get_dir_content()
+	// }
 }
 
 void ft_ls(const char **argv)

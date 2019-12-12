@@ -15,10 +15,6 @@ void ft_ls(const char **argv);
 void	get_files_and_dirs(const char **argv, t_list **files, t_list **dirs);
 t_uint64	get_flags(const char **argv);
 
-typedef struct			s_dir
-{
-	t_file_info		*files;
-}						t_dir;
 
 
 typedef struct			s_file_info
@@ -33,6 +29,10 @@ typedef struct			s_file_info
 	char				*pathname;
 }						t_file_info;
 
+typedef struct			s_dir
+{
+	t_file_info		*files;
+}						t_dir;
 
 
 typedef struct			s_ls_data
