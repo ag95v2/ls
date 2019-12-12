@@ -172,6 +172,11 @@ int		fill_file_info(char *path, t_file_info *fi)
 	fill_time(sb, fi);
 	if (!(fi->pathname = ft_strdup(path)))
 		return (1);
+	if (fi->type == 'b' || fi.type == 'c')
+	{
+		fi.major = major(sb.st_rdev);
+		fi.min = minor(sb.st_rdev);
+	}
 	return (0);
 }
 
@@ -186,7 +191,10 @@ int		print_file_info(char *path)
 	ft_printf("%d ",fi.nlinks);
 	ft_printf("%s ",fi.owner);
 	ft_printf("%s ",fi.group);
-	ft_printf("%d ",fi.size);
+	if (fi.type == 'b' || fi.type == 'c')
+		ft_printf("%d, %d ", fi.major, fi.minor);
+	else
+		ft_printf("%d ",fi.size);
 	ft_printf("%s ",fi.date);
 	ft_printf("%s", fi.pathname);
 	ft_printf("%c", '\n');

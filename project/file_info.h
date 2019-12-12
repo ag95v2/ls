@@ -27,6 +27,8 @@ typedef struct			s_file_info
 	unsigned long long	size;
 	char				*date;
 	char				*pathname;
+	int					major;
+	int					minor;
 }						t_file_info;
 
 typedef struct			s_dir
