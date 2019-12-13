@@ -7,80 +7,83 @@
 
 #include "file_info.h"
 
-void sort_files(t_list **files)
+void sort_files(t_list **files, t_flags flags)
 {
-	if (files || !files)
+	if (files && flags)
 		return ;
+	return ;
 }
 
-void sort_dirs(t_list **dirs)
+void print_all(t_list *files, t_flags flags)
 {
-	if (dirs|| !dirs)
+	if (flags && !flags)
 		return ;
-}
-
-void print_files(const t_list *files)
-{
 	while (files)
 	{
-		printf("%s\t", (char*)files->content);
+		// printf("%s\t", ((t_file_info*)files->content)->name);
 		files = files->next;
 	}
-	printf("\n");
 }
 
-t_dir *get_dir_content(const DIR *dir)
+void print_files(const t_list *files, t_flags flags)
 {
-	if (dir || !dir)
-		return (NULL);
-	return (NULL);
-	// t_dir *dir_data;
-	// struct dirent *cur_file;
-
-	// dir_data = NULL;
-	// while ((cur_file = readdir(dir)))
-	// {
-
-	// }
-}
-
-void print_dirs(const t_list *dirs)
-{
-	if (dirs || !dirs)
+	if (flags && !flags)
 		return ;
-	// DIR *dir;
+	while (files)
+	{
+		// if (((t_file_info*)files->content)->type != 'd')
+		// 	printf("%s\t", ((t_file_info*)files->content)->name);
+		files = files->next;
+	}
+}
 
-	// while (dirs)
-	// {
-	// 	dir = opendir(dirs->content);
-	// 	get_dir_content()
-	// }
+void print_dirs(const t_list *files, t_flags flags, int rec_depth)
+{
+	DIR *dir;
+	struct dirent *cur_file;
+	t_file_info		info;
+	char *str;
+	t_list *dir_data;
+
+	dir_data = NULL;
+	while (files)
+	{
+		if (((t_file_info*)files->content)->type == 'd')
+		{
+			printf("%s\n", ((t_file_info*)files->content)->pathname);
+			if (!ft_strequ(".", ((t_file_info*)files->content)->name) && !ft_strequ("..", ((t_file_info*)files->content)->name))
+			{
+				printf("%s:\n", ((t_file_info*)files->content)->pathname);
+				dir = opendir(((t_file_info*)files->content)->pathname);
+				while ((cur_file = readdir(dir)))
+				{
+					str = ft_strjoin(((t_file_info*)files->content)->pathname, "/");
+					str = ft_strjoin(str, cur_file->d_name);
+					info = get_file_info(str, flags);
+					info.name = ft_strdup(cur_file->d_name);
+					ft_lstadd(&dir_data, ft_lstnew(&info, sizeof(t_file_info)));
+				}
+				closedir(dir);
+				sort_files(&dir_data, flags);
+				print_all(dir_data, flags);
+				printf("\n\n");
+				if (flags & FLAG_REC)
+					print_dirs(dir_data, flags, rec_depth + 1);
+			}
+		}
+		files = files->next;
+	}
 }
 
 void ft_ls(const char **argv)
 {
-	t_ls_data	data;
+	t_flags	flags;
+	t_list	*files;
 
-	data.flags = get_flags(argv);
-	get_files_and_dirs(argv, &data.files, &data.dirs);
-
-	sort_files(&data.files);
-	print_files(data.files);
-	if (data.dirs)
-		printf("\n");
-	print_dirs(data.dirs);
-
-
-	// printf("Files:\n");
-	// while (data.files)
-	// {
-	// 	printf("\t%s\n", (char*)data.files->content);
-	// 	data.files = data.files->next;
-	// }
-	// printf("\nDirs:\n");
-	// while (data.dirs)
-	// {
-	// 	printf("\t%s\n", (char*)data.dirs->content);
-	// 	data.dirs = data.dirs->next;
-	// }
+	flags = get_flags(argv);
+	files = get_files(argv);
+	sort_files(&files, flags);
+	print_files(files, flags);
+	print_dirs(files, flags, 0);
+	ft_lstpurge(&files);
 }

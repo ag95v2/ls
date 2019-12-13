@@ -9,6 +9,6 @@ int	main(int argc, const char **argv)
 		return (1);
 	}
 	ft_ls(argv);
-	print_file_info(argv[1]);
+	// print_file_info(argv[1]);
 	return (0);
 }

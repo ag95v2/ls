@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dbendu <dbendu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 13:04:46 by user              #+#    #+#             */
-/*   Updated: 2019/12/12 13:13:45 by user             ###   ########.fr       */
+/*   Updated: 2019/12/13 13:25:43 by dbendu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static void		get_flags_from_str(const char *str, t_uint64 *flags)
 	while (*(++str))
 	{
 		if (*str == 'R')
-			*flags |= RU;
+			*flags |= FLAG_REC;
 		else if (*str == 'r')
-			*flags |= RL;
+			*flags |= FLAG_REV;
 		else if (*str == 'a')
-			*flags |= A;
+			*flags |= FLAG_A;
 		else if (*str == 'l')
-			*flags |= L;
+			*flags |= FLAG_L;
 		else if (*str == 't')
-			*flags |= T;
+			*flags |= FLAG_T;
 	}
 }
 
@@ -49,26 +49,19 @@ t_uint64	get_flags(const char **argv)
 	return (flags);
 }
 
-void	get_files_and_dirs(const char **argv, t_list **files, t_list **dirs)
+t_list	*get_files(const char **argv)
 {
-	DIR		*dir;
+	t_list *files;
+	t_file_info	info;
 
-	*files = NULL;
-	*dirs = NULL;
+	files = NULL;
 	while (*(++argv))
 	{
-		dir = opendir(*argv);
-		if (!dir)
+		if (**argv != '-')
 		{
-			if (errno == EACCES)
-				printf("ft_ls: cannot open directory '%s': Permission denied\n", *argv);
-			else if (errno == ENOENT)
-				printf("ft_ls: cannot access '%s': No such file or directory\n", *argv);
-			else if (errno == ENOTDIR)
-				ft_lstappend(files, ft_lstnew(*argv, ft_strlen(*argv) + 1));
+			info = get_file_info(*argv, 0);
+			ft_lstadd(&files, ft_lstnew(&info, sizeof(t_file_info)));
 		}
-		else
-			ft_lstappend(dirs, ft_lstnew(*argv, ft_strlen(*argv) + 1));
-		closedir(dir);
 	}
+	return (files);
 }

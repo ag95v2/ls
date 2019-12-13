@@ -142,9 +142,9 @@ int		fill_time(struct stat sb, t_file_info *fi)
 
 	if ((current_time = time(0)) == -1)
 		return (1);
-	if (current_time - sb.st_mtim.tv_sec > HALF_OF_THE_YEAR)
+	if (current_time - sb.st_mtime > HALF_OF_THE_YEAR)
 		old_file = 1;
-	s = ctime(&sb.st_mtim.tv_sec);
+	s = ctime(&sb.st_mtime);
 	if (!(fi->date = ft_strdup(s)))
 		return (1);
 	format_time(fi->date, old_file);
@@ -155,7 +155,7 @@ int		fill_time(struct stat sb, t_file_info *fi)
 **	Print long listing like "ls -l"
 */
 
-int		fill_file_info(char *path, t_file_info *fi)
+int		fill_file_info(const char *path, t_file_info *fi)
 {
 	struct stat sb;
 
@@ -180,25 +180,12 @@ int		fill_file_info(char *path, t_file_info *fi)
 	return (0);
 }
 
-int		print_file_info(char *path)
+t_file_info	get_file_info(const char *filename, t_flags flags)
 {
 	t_file_info	fi;
 
-	if (fill_file_info(path, &fi) == 1)
-		return (1);
-	ft_printf("%c", fi.type);
-	ft_printf("%s ",fi.perms);
-	ft_printf("%d ",fi.nlinks);
-	ft_printf("%s ",fi.owner);
-	ft_printf("%s ",fi.group);
-	if (fi.type == 'b' || fi.type == 'c')
-		ft_printf("%d, %d ", fi.major, fi.minor);
-	else
-		ft_printf("%d ",fi.size);
-	ft_printf("%s ",fi.date);
-	ft_printf("%s", fi.pathname);
-	ft_printf("%c", '\n');
-	free(fi.pathname);
-	free(fi.date);
-	return (0);
+	fill_file_info(filename, &fi);
+	if (flags || !flags)
+		return (fi);
+	return (fi);
 }
