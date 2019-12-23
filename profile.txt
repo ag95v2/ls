@@ -1,0 +1,290 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 35.32      0.06     0.06                             ft_memcpy
+ 29.43      0.11     0.05                             ft_memset
+ 17.66      0.14     0.03   350174     0.00     0.00  name_is_greater
+  5.89      0.15     0.01    20032     0.00     0.00  get_file_info
+  5.89      0.16     0.01                             ft_putchar
+  5.89      0.17     0.01                             ft_strlen
+  0.00      0.17     0.00   200326     0.00     0.00  ft_printf
+  0.00      0.17     0.00    40064     0.00     0.00  ndigits
+  0.00      0.17     0.00    20033     0.00     0.00  del
+  0.00      0.17     0.00    20033     0.00     0.00  push
+  0.00      0.17     0.00    20032     0.00     0.00  fill_file_info
+  0.00      0.17     0.00    20032     0.00     0.00  fill_owner_group
+  0.00      0.17     0.00    20032     0.00     0.00  print_single_file_l
+  0.00      0.17     0.00    20031     0.00     0.00  pop_file
+  0.00      0.17     0.00        2     0.00     0.00  choose_comparator
+  0.00      0.17     0.00        2     0.00     0.00  fill_offsets
+  0.00      0.17     0.00        2     0.00     0.00  is_option_arg
+  0.00      0.17     0.00        2     0.00     0.00  parse_dir
+  0.00      0.17     0.00        2     0.00     0.00  print_list_files
+  0.00      0.17     0.00        2     0.00     0.00  print_subdirs
+  0.00      0.17     0.00        2     0.00    15.01  qsort_void_ptr
+  0.00      0.17     0.00        2     0.00     0.00  rmstats
+  0.00      0.17     0.00        2     0.00     0.00  sort_fileinfo
+  0.00      0.17     0.00        2     0.00     0.00  start_of_name
+  0.00      0.17     0.00        1     0.00     0.00  init_flags
+  0.00      0.17     0.00        1     0.00     0.00  pop_dir
+  0.00      0.17     0.00        1     0.00    40.03  print_dir_listing
+  0.00      0.17     0.00        1     0.00     0.00  read_option_arg
+  0.00      0.17     0.00        1     0.00     0.00  rm_arr_fileinfo
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2015 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 5.88% of 0.17 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     35.3    0.06    0.00                 ft_memcpy [1]
+-----------------------------------------------
+                                                 <spontaneous>
+[2]     29.4    0.05    0.00                 ft_memset [2]
+-----------------------------------------------
+                                   1             print_subdirs <cycle 1> [24]
+[4]     23.5    0.00    0.04       1         print_dir_listing <cycle 1> [4]
+                0.00    0.03       2/2           qsort_void_ptr [6]
+                0.00    0.01   20031/20031       pop_file [10]
+                0.00    0.00       1/1           pop_dir [11]
+                0.00    0.00       5/200326      ft_printf [12]
+                0.00    0.00       2/2           parse_dir [22]
+                0.00    0.00       2/2           sort_fileinfo [26]
+                0.00    0.00       2/2           print_list_files [23]
+                0.00    0.00       2/2           rmstats [25]
+                                   2             print_subdirs <cycle 1> [24]
+-----------------------------------------------
+                0.03    0.00  350174/350174      qsort_void_ptr [6]
+[5]     17.6    0.03    0.00  350174         name_is_greater [5]
+-----------------------------------------------
+                                7669             qsort_void_ptr [6]
+                0.00    0.03       2/2           print_dir_listing <cycle 1> [4]
+[6]     17.6    0.00    0.03       2+7669    qsort_void_ptr [6]
+                0.03    0.00  350174/350174      name_is_greater [5]
+                                7669             qsort_void_ptr [6]
+-----------------------------------------------
+                0.00    0.00       1/20032       pop_dir [11]
+                0.01    0.00   20031/20032       pop_file [10]
+[7]      5.9    0.01    0.00   20032         get_file_info [7]
+                0.00    0.00   20032/20032       fill_file_info [16]
+-----------------------------------------------
+                                                 <spontaneous>
+[8]      5.9    0.01    0.00                 ft_putchar [8]
+-----------------------------------------------
+                                                 <spontaneous>
+[9]      5.9    0.01    0.00                 ft_strlen [9]
+-----------------------------------------------
+                0.00    0.01   20031/20031       print_dir_listing <cycle 1> [4]
+[10]     5.9    0.00    0.01   20031         pop_file [10]
+                0.01    0.00   20031/20032       get_file_info [7]
+-----------------------------------------------
+                0.00    0.00       1/1           print_dir_listing <cycle 1> [4]
+[11]     0.0    0.00    0.00       1         pop_dir [11]
+                0.00    0.00       1/20032       get_file_info [7]
+-----------------------------------------------
+                0.00    0.00       5/200326      print_dir_listing <cycle 1> [4]
+                0.00    0.00  200321/200326      print_single_file_l [18]
+[12]     0.0    0.00    0.00  200326         ft_printf [12]
+-----------------------------------------------
+                0.00    0.00   40064/40064       print_single_file_l [18]
+[13]     0.0    0.00    0.00   40064         ndigits [13]
+-----------------------------------------------
+                0.00    0.00   20033/20033       ft_lstdelone [50]
+[14]     0.0    0.00    0.00   20033         del [14]
+-----------------------------------------------
+                0.00    0.00       1/20033       parse_args [67]
+                0.00    0.00   20032/20033       parse_dir [22]
+[15]     0.0    0.00    0.00   20033         push [15]
+-----------------------------------------------
+                0.00    0.00   20032/20032       get_file_info [7]
+[16]     0.0    0.00    0.00   20032         fill_file_info [16]
+                0.00    0.00   20032/20032       fill_owner_group [17]
+-----------------------------------------------
+                0.00    0.00   20032/20032       fill_file_info [16]
+[17]     0.0    0.00    0.00   20032         fill_owner_group [17]
+-----------------------------------------------
+                0.00    0.00   20032/20032       print_list_files [23]
+[18]     0.0    0.00    0.00   20032         print_single_file_l [18]
+                0.00    0.00  200321/200326      ft_printf [12]
+                0.00    0.00   40064/40064       ndigits [13]
+-----------------------------------------------
+                0.00    0.00       2/2           sort_fileinfo [26]
+[19]     0.0    0.00    0.00       2         choose_comparator [19]
+-----------------------------------------------
+                0.00    0.00       2/2           print_list_files [23]
+[20]     0.0    0.00    0.00       2         fill_offsets [20]
+-----------------------------------------------
+                0.00    0.00       2/2           parse_args [67]
+[21]     0.0    0.00    0.00       2         is_option_arg [21]
+-----------------------------------------------
+                0.00    0.00       2/2           print_dir_listing <cycle 1> [4]
+[22]     0.0    0.00    0.00       2         parse_dir [22]
+                0.00    0.00   20032/20033       push [15]
+-----------------------------------------------
+                0.00    0.00       2/2           print_dir_listing <cycle 1> [4]
+[23]     0.0    0.00    0.00       2         print_list_files [23]
+                0.00    0.00   20032/20032       print_single_file_l [18]
+                0.00    0.00       2/2           fill_offsets [20]
+-----------------------------------------------
+                                   2             print_dir_listing <cycle 1> [4]
+[24]     0.0    0.00    0.00       2         print_subdirs <cycle 1> [24]
+                0.00    0.00       2/2           start_of_name [27]
+                0.00    0.00       1/1           rm_arr_fileinfo [30]
+                                   1             print_dir_listing <cycle 1> [4]
+-----------------------------------------------
+                0.00    0.00       2/2           print_dir_listing <cycle 1> [4]
+[25]     0.0    0.00    0.00       2         rmstats [25]
+-----------------------------------------------
+                0.00    0.00       2/2           print_dir_listing <cycle 1> [4]
+[26]     0.0    0.00    0.00       2         sort_fileinfo [26]
+                0.00    0.00       2/2           choose_comparator [19]
+-----------------------------------------------
+                0.00    0.00       2/2           print_subdirs <cycle 1> [24]
+[27]     0.0    0.00    0.00       2         start_of_name [27]
+-----------------------------------------------
+                0.00    0.00       1/1           parse_args [67]
+[28]     0.0    0.00    0.00       1         init_flags [28]
+-----------------------------------------------
+                0.00    0.00       1/1           parse_args [67]
+[29]     0.0    0.00    0.00       1         read_option_arg [29]
+-----------------------------------------------
+                0.00    0.00       1/1           print_subdirs <cycle 1> [24]
+[30]     0.0    0.00    0.00       1         rm_arr_fileinfo [30]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2015 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [19] choose_comparator       [7] get_file_info          [18] print_single_file_l
+  [14] del                    [28] init_flags             [24] print_subdirs
+  [16] fill_file_info         [21] is_option_arg          [15] push
+  [20] fill_offsets            [5] name_is_greater         [6] qsort_void_ptr
+  [17] fill_owner_group       [13] ndigits                [29] read_option_arg
+   [1] ft_memcpy              [22] parse_dir              [30] rm_arr_fileinfo
+   [2] ft_memset              [11] pop_dir                [25] rmstats
+  [12] ft_printf              [10] pop_file               [26] sort_fileinfo
+   [8] ft_putchar              [4] print_dir_listing      [27] start_of_name
+   [9] ft_strlen              [23] print_list_files        (3) <cycle 1>

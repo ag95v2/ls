@@ -12,6 +12,9 @@
 #include "file_info.h"
 #include <pwd.h>
 #include <grp.h>
+#include <unistd.h>
+#include <errno.h>
+#include <limits.h>
 
 /* Stub for ft_printf */
 int	ft_printf(const char *format, ...)
@@ -22,10 +25,9 @@ int	ft_printf(const char *format, ...)
 	va_start(vl, format);
 	ret = vprintf(format, vl);
 	va_end(vl);
+	fflush(stdout);
 	return (ret);
 }
-
-
 
 char	file_type_char(struct stat sb)
 {
@@ -80,8 +82,19 @@ int		fill_owner_group(struct stat sb, t_file_info *fi)
 		perror("getgrgid()");
 		return (1);
 	}
-	fi->owner = pwuser->pw_name;
-	fi->group = grpnam->gr_name;
+	fi->owner = ft_strdup(pwuser->pw_name);
+	if (!fi->owner)
+	{
+		ft_printf("%s\n", strerror(errno));
+		return (1);
+	}
+	fi->group = ft_strdup(grpnam->gr_name);
+	if (!fi->group)
+	{
+		free(fi->owner);
+		ft_printf("%s\n", strerror(errno));	
+		return (1);
+	}
 	return (0);
 }
 
@@ -131,8 +144,18 @@ void	format_time(char *s, int is_old)
 	*(s - 1) = 0;
 	if (!is_old)
 		return ;
-	ft_strcpy(s - 6,s + 3);
+	ft_strcpy(s - 6, s + 3);
 }
+
+time_t	max(time_t a, time_t b)
+{
+	return (a > b ? a : b);
+}	
+
+time_t	min(time_t a, time_t b)
+{
+	return (a < b ? a : b);
+}	
 
 int		fill_time(struct stat sb, t_file_info *fi)
 {
@@ -140,11 +163,14 @@ int		fill_time(struct stat sb, t_file_info *fi)
 	time_t	current_time;
 	int		old_file;
 
+	old_file = 0;
 	if ((current_time = time(0)) == -1)
 		return (1);
-	if (current_time - sb.st_mtim.tv_sec > HALF_OF_THE_YEAR)
+	if (max(current_time, sb.st_mtim.tv_sec) -\
+		min(current_time, sb.st_mtim.tv_sec) > HALF_OF_THE_YEAR)
 		old_file = 1;
 	s = ctime(&sb.st_mtim.tv_sec);
+	fi->timestamp = sb.st_mtim.tv_sec;
 	if (!(fi->date = ft_strdup(s)))
 		return (1);
 	format_time(fi->date, old_file);
@@ -152,19 +178,33 @@ int		fill_time(struct stat sb, t_file_info *fi)
 }
 
 /*
-**	Print long listing like "ls -l"
+**	return pathname of file
 */
 
-int		fill_file_info(char *path, t_file_info *fi)
+char	*follow_symlink(struct stat *sb, char *path)
 {
-	struct stat sb;
+	char	*name;
+	ssize_t	size;
+	ssize_t	nbytes;
 
-	if (stat(path, &sb) == -1)
+	size = sb->st_size ? sb->st_size + 1 : PATH_MAX;
+	if (!(name = malloc(size)))
+		return (0);
+	if ((nbytes = readlink(path, name, size)) == -1)
 	{
-		perror("stat");
-		return (1);
+		ft_printf("ls: cannot access '%s': %s\n", strerror(errno), path); // To stderr not stdout!
+		return (0);
 	}
+	name[nbytes] = 0;
+	return (name);
+}
+
+
+int		fill_file_info(struct stat sb, char *path, t_file_info *fi)
+{
 	fill_ftype(sb, fi);
+	if (fi->type == 'l')
+		fi->points_to = follow_symlink(&sb, path);
 	fill_prems(sb, fi);
 	fi->nlinks = sb.st_nlink;
 	fi->size = sb.st_size;
@@ -180,25 +220,13 @@ int		fill_file_info(char *path, t_file_info *fi)
 	return (0);
 }
 
-int		print_file_info(char *path)
+t_file_info		*get_file_info(t_path_stat *ps)
 {
-	t_file_info	fi;
+	t_file_info	*info;
 
-	if (fill_file_info(path, &fi) == 1)
-		return (1);
-	ft_printf("%c", fi.type);
-	ft_printf("%s ",fi.perms);
-	ft_printf("%d ",fi.nlinks);
-	ft_printf("%s ",fi.owner);
-	ft_printf("%s ",fi.group);
-	if (fi.type == 'b' || fi.type == 'c')
-		ft_printf("%d, %d ", fi.major, fi.minor);
-	else
-		ft_printf("%d ",fi.size);
-	ft_printf("%s ",fi.date);
-	ft_printf("%s", fi.pathname);
-	ft_printf("%c", '\n');
-	free(fi.pathname);
-	free(fi.date);
-	return (0);
+	info = (t_file_info *)ft_memalloc(sizeof(t_file_info));
+	if (!info)
+		return (0);
+	fill_file_info(*(ps->sb), ps->path, info);
+	return (info);
 }

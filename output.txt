@@ -1,0 +1,37 @@
+total 1248
+-rw-rw-r-- 1 anton anton    242 Dec 23 07:57 colors.h
+-rw-rw-r-- 1 anton anton   1291 Dec 23 04:35 comparators.c
+-rw-rw-r-- 1 anton anton    136 Dec 19 06:15 comparators.h
+-rw-rw-r-- 1 anton anton 430739 Dec 22 15:24 cscope.out
+-rw-rw-r-- 1 anton anton    102 Dec 21 07:24 errors.h
+-rw-rw-r-- 1 anton anton   4062 Dec 23 06:59 file_info.c
+-rw-rw-r-- 1 anton anton   1265 Dec 23 06:42 file_info.h
+-rw-rw-r-- 1 anton anton    257 Dec 22 08:51 file_info_clear.c
+-rw-rw-r-- 1 anton anton    191 Dec 22 13:05 filesort.c
+-rw-rw-r-- 1 anton anton    202 Dec 22 12:53 filesort.h
+-rw-rw-r-- 1 anton anton    331 Dec 18 06:08 fs_utils.c
+-rw-rw-r-- 1 anton anton    124 Dec 18 06:08 fs_utils.h
+-rwxrwxr-x 1 anton anton  63008 Dec 23 08:14 ft_ls
+-rw-rw-r-- 1 anton anton   1789 Dec 23 06:46 get_stats.c
+drwxrwxr-x 2 anton anton   4096 Dec 22 15:50 hidden_files
+drwxrwxr-x 4 anton anton   4096 Dec 22 13:52 libft
+-rw-rw-r-- 1 anton anton   1101 Dec 23 07:43 main.c
+-rw-rw-r-- 1 anton anton     91 Dec 22 12:42 Makefile
+-rw-rw-r-- 1 anton anton   1281 Dec 23 06:53 offsets.c
+-rw-rw-r-- 1 anton anton    307 Dec 20 05:03 offsets.h
+-rw-rw-r-- 1 anton anton      0 Dec 23 08:14 output.txt
+lrwxrwxrwx 3 anton anton      1 Dec 23 04:58 p -> q
+-rw-rw-r-- 1 anton anton   1091 Dec 22 14:19 parse_args.c
+-rw-rw-r-- 1 anton anton    900 Dec 22 14:29 parse_flags.c
+-rw-rw-r-- 1 anton anton    309 Dec 21 06:11 parse_flags.h
+-rw-rw-r-- 1 anton anton   3241 Dec 23 07:42 print_dir_listing.c
+-rw-rw-r-- 1 anton anton   2310 Dec 23 08:14 print_file_info.c
+-rw-rw-r-- 1 anton anton    233 Dec 23 07:46 print_utils.h
+-rw-rw-r-- 1 anton anton      0 Dec 22 23:11 q
+-rw-rw-r-- 1 anton anton    120 Dec 19 05:26 qsort.h
+lrwxrwxrwx 3 anton anton      1 Dec 23 04:58 r -> q
+-rw-rw-r-- 1 anton anton    381 Dec 22 13:52 rmstats.c
+lrwxrwxrwx 3 anton anton      1 Dec 23 04:58 s -> q
+-rw-rw-r-- 1 anton anton   1422 Dec 19 05:26 sort_void_ptr.c
+-rw-rw-r-- 1 anton anton  22704 Dec 22 15:24 tags
+drwxrwxr-x 4 anton anton   4096 Dec 23 00:20 test_qsort
