@@ -6,7 +6,7 @@
 /*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 15:51:04 by bgian             #+#    #+#             */
-/*   Updated: 2019/12/24 16:14:33 by bgian            ###   ########.fr       */
+/*   Updated: 2019/12/24 21:38:14 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int					max_elem(int *arr, int len)
 	int	max;
 	int	i;
 
+	if (len == 0)
+		return (0);
 	i = 0;
 	max = arr[i];
 	while (i < len)
