@@ -2,7 +2,6 @@
 #include "offsets.h"
 #include "file_info.h"
 #include "colors.h"
-#include "unistd.h"
 #include "print_utils.h"
 
 /*
@@ -26,7 +25,7 @@ static void	offs_crutch(int is_int, void *arg, int offset)
 {
 	if (is_int)
 	{
-		print_n_spaces(offset - ndigits(*(int *)arg));
+		print_n_spaces(offset - ndigits_int(*(int *)arg));
 		ft_printf("%d", *(int *)arg);
 	}
 	else
@@ -54,26 +53,7 @@ char	*start_of_name(char *path)
 	return (res);
 }
 
-void	set_color(t_file_info *fi)
-{
-	if (!isatty(1))
-		return ;
-	if (fi->type == 'd')
-		ft_printf("%s", KBLU);
-	if (fi->type == 'l')
-		ft_printf("%s", KCYN);
-	if (fi->type == '-' && (fi->perms[2] == 'x' || fi->perms[7] == 'x' ||  fi->perms[5] == 'x' ))
-		ft_printf("%s", KGRN);
-}
-
-void	reset_color()
-{
-	if (!isatty(1))
-		return ;
-	ft_printf("%s", KNRM);
-}
-
-int		print_single_file_l(t_file_info *fi, t_offsets *offs, int only_name)
+int		print_single_file_l(t_flags flags, t_file_info *fi, t_offsets *offs, int only_name)
 {
 	ft_printf("%c", fi->type);
 	ft_printf("%s",fi->perms);
@@ -90,9 +70,11 @@ int		print_single_file_l(t_file_info *fi, t_offsets *offs, int only_name)
 		offs_crutch(1, &(fi->size), offs->size);
 	ft_putchar(' ');
 	ft_printf("%s ",fi->date);
-	set_color(fi);
+	if (flags.color)
+		set_color(fi);
 	ft_printf("%s", only_name ? start_of_name(fi->pathname) : fi->pathname);
-	reset_color();
+	if (flags.color)
+		reset_color();
 	if (fi->type == 'l')
 		ft_printf(" -> %s", fi->points_to);
 	ft_printf("%c", '\n');
@@ -106,16 +88,26 @@ void	print_list_files(t_flags flags, t_file_info **fi, int len, int only_name)
 
 	if (flags.long_format)
 		fill_offsets(&offs, fi, len);
-	pretty_print(flags, fi, len);
-	return ;
+	if (!flags.oneline && !flags.long_format)
+	{
+		pretty_print(flags, fi, len);
+		return ;
+	}
 	i = -1;
 	while (++i < len)
 	{
 		if (!flags.all && fi[i]->pathname[0] == '.')
 			continue ;
 		if (flags.long_format)
-			print_single_file_l(fi[i], &offs, only_name);
+			print_single_file_l(flags, fi[i], &offs, only_name);
 		else 
+		{
+			if (flags.color)
+				set_color(fi[i]);
 			ft_printf("%s\n", only_name ? start_of_name(fi[i]->pathname) : fi[i]->pathname);
+			if (flags.color)
+				reset_color();
+
+		}
 	}
 }

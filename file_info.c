@@ -3,11 +3,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-// Later use libft instead
-#include <stdio.h>
-#include <stdarg.h>
 #include <string.h>
-//
 
 #include "file_info.h"
 #include <pwd.h>
@@ -15,19 +11,6 @@
 #include <unistd.h>
 #include <errno.h>
 #include <limits.h>
-
-/* Stub for ft_printf */
-int	ft_printf(const char *format, ...)
-{
-	int ret;
-	va_list vl;
-
-	va_start(vl, format);
-	ret = vprintf(format, vl);
-	va_end(vl);
-	fflush(stdout);
-	return (ret);
-}
 
 char	file_type_char(struct stat sb)
 {
@@ -72,27 +55,21 @@ int		fill_owner_group(struct stat sb, t_file_info *fi)
 	static struct group		*grpnam;
 
 	if (!(pwuser = getpwuid(sb.st_uid)))
-	{
-		perror("getpwuid()");
 		return (1);
-	}
 
 	if (!(grpnam = getgrgid(sb.st_gid)))
-	{
-		perror("getgrgid()");
 		return (1);
-	}
 	fi->owner = ft_strdup(pwuser->pw_name);
 	if (!fi->owner)
 	{
-		ft_printf("%s\n", strerror(errno));
+		ft_printf("%s\n", strerror(errno)); //to stderr
 		return (1);
 	}
 	fi->group = ft_strdup(grpnam->gr_name);
 	if (!fi->group)
 	{
 		free(fi->owner);
-		ft_printf("%s\n", strerror(errno));	
+		ft_printf("%s\n", strerror(errno)); //to stderr
 		return (1);
 	}
 	return (0);
@@ -147,12 +124,12 @@ void	format_time(char *s, int is_old)
 	ft_strcpy(s - 6, s + 3);
 }
 
-time_t	max(time_t a, time_t b)
+static time_t	max(time_t a, time_t b)
 {
 	return (a > b ? a : b);
 }	
 
-time_t	min(time_t a, time_t b)
+static time_t	min(time_t a, time_t b)
 {
 	return (a < b ? a : b);
 }	

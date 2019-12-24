@@ -6,7 +6,7 @@
 /*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 18:42:53 by bgian             #+#    #+#             */
-/*   Updated: 2019/10/01 00:24:17 by bgian            ###   ########.fr       */
+/*   Updated: 2019/12/24 13:56:38 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,7 @@ void				ft_print_array(int *a, int len);
 int					*ft_array_subtract(int *arr, unsigned int len, int number,\
 		int in_place);
 char				*ftoa(long double x, int precision);
+
+int					ft_printf(const char *format, ...);
 
 #endif

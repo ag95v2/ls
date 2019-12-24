@@ -48,7 +48,6 @@ typedef struct			s_path_stat
 }						t_path_stat;
 
 t_stats					*parse_args(t_flags *flags, int argc, char **argv);
-int						ft_printf(const char *format, ...);
 t_file_info				*get_file_info(t_path_stat *ps);
 
 t_file_info				**get_args_fileinfo(t_stats *stats);

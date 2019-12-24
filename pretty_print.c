@@ -2,6 +2,7 @@
 #include "pretty_print.h"
 #include <sys/ioctl.h>
 #include "libft.h"
+#include "colors.h"
 
 int		n_columns_terminal()
 {
@@ -30,9 +31,11 @@ int		max_elem(int *arr, int len)
 int		choose_ncolumns(int width, int len, int *sizes)
 {
 	int	max_len;
+	int	n;
 
 	max_len = max_elem(sizes, len);
-	return (width / (max_len + 3));
+	n = width / (max_len + 3);
+	return (n ? n : n + 1);
 }
 
 static int		my_abs(int x)
@@ -61,7 +64,7 @@ static void			ft_itoa_stack(int n, char *s)
 }
 
 
-static void	print(int n_cols, int len, int width, t_file_info **info)
+static void	print(t_flags flags, int n_cols, int len, int width, t_file_info **info)
 {
 	int		i;
 	char	*fmt;
@@ -73,7 +76,11 @@ static void	print(int n_cols, int len, int width, t_file_info **info)
 	i = 0;
 	while (i < len)
 	{
+		if (flags.color)
+			set_color(info[i]);	
 		ft_printf(fmt, start_of_name(info[i]->pathname));
+		if (flags.color)
+			reset_color();	
 		if (!((i + 1) % n_cols))
 			ft_printf("%c", '\n');
 		i++;
@@ -99,6 +106,6 @@ void	pretty_print(t_flags flags, t_file_info **info, int len)
 	while (++i < len)
 		sizes[i] = ft_strlen(start_of_name(info[i]->pathname));
 	n_cols = choose_ncolumns(term_width, len, sizes);
-	print(n_cols, len, term_width, info);
+	print(flags, n_cols, len, term_width, info);
 	free(sizes);
 }

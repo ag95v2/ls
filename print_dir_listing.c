@@ -144,7 +144,7 @@ void	print_dir_listing(t_flags flags, char *path, int dname_needed)
 
     if (!(d = opendir(path)))
 	{
-		ft_printf("ls: cannot open directory '%s': %s\n", strerror(errno)); //To Stderr
+		ft_printf("ls: cannot open directory '%s': %s\n", path, strerror(errno)); //To Stderr
 		return ;
 	}
 	if (!(stats = parse_dir(flags, d, path)))

@@ -8,6 +8,8 @@ void	init_flags(t_flags *flags)
 	flags->sort_by_time = 0;
 	flags->all = 0;
 	flags->long_format = 0;
+	flags->oneline = 0;
+	flags->color = 0;
 }
 
 /*
@@ -46,6 +48,10 @@ int		read_option_arg(char *arg, t_flags *flags)
 			flags->reverse = 1;
 		else if (*arg == 't')
 			flags->sort_by_time = 1;
+		else if (*arg == 'G')
+			flags->color = 1;
+		else if (*arg == '1')
+			flags->oneline = 1;
 		else
 			return (*arg);
 	}

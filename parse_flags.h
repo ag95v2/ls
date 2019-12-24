@@ -10,6 +10,8 @@ typedef struct	s_flags
 	int			reverse;
 	int			sort_by_time;
 	int			long_format;
+	int			color;
+	int			oneline;
 }				t_flags;
 
 int		is_option_arg(char *arg);

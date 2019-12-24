@@ -14,7 +14,7 @@ typedef struct	s_offsets
 }				t_offsets;
 
 void	fill_offsets(t_offsets *offs, t_file_info **info, int len);
-int		ndigits(int num);
+int		ndigits_int(int num);
 int		s_len(char *s);
 
 #endif

@@ -1,6 +1,9 @@
 #ifndef COLORS_H
 #define COLORS_H
 
+#include "file_info.h"
+#include "unistd.h"
+
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
 #define KGRN  "\x1B[32m"
@@ -9,5 +12,8 @@
 #define KMAG  "\x1B[35m"
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
+
+void	set_color(t_file_info *fi);
+void	reset_color();
 
 #endif
