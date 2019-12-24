@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   comparators.h                                      :+:      :+:    :+:   */
+/*   comparators0.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/24 16:23:55 by bgian             #+#    #+#             */
-/*   Updated: 2019/12/24 16:23:59 by bgian            ###   ########.fr       */
+/*   Created: 2019/12/24 16:24:14 by bgian             #+#    #+#             */
+/*   Updated: 2019/12/24 16:24:28 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPARATORS_H
-#define COMPARATORS_H
+#ifndef COMPARATORS_0_H
+#define COMPARATORS_0_H
 
-#include "filesort.h"
-#include "libft.h"
+#include "comparators.h"
 
-t_cmpf	choose_comparator(t_flags flags);
+int		time_is_greater(void *a, void *b);
+int		time_is_not_grater(void *a, void *b);
+int		is_upper(char a);
+char	to_lower(char a);
+int		case_insensitive_strcmp(char *a, char *b);
 
 #endif

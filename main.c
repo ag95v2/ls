@@ -32,7 +32,6 @@ int	main(int argc, char **argv)
 		info = get_args_fileinfo(stats);
 		sort_fileinfo(flags, nfiles, info);
 		print_list_files(flags, info, nfiles, 0);
-		//clear_fi_array(info, nfiles);
 	}
 	if (stats->n_dirs)
 	{

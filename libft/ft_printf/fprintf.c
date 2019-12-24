@@ -6,7 +6,7 @@
 /*   By: dpenney <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 17:03:03 by dpenney           #+#    #+#             */
-/*   Updated: 2019/12/24 14:53:29 by bgian            ###   ########.fr       */
+/*   Updated: 2019/12/24 14:53:24 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 **	-0 otherwise
 */
 
-const char	*print_until_percent(const char *format, int *i)
+static const char	*print_until_percent(const char *format, int *i, int fd)
 {
 	while (*format && *format != '%')
 	{
-		ft_putchar(*(format++));
+		ft_putchar_fd(*(format++), fd);
 		(*i)++;
 	}
 	return (*format ? ++format : 0);
@@ -38,7 +38,7 @@ const char	*print_until_percent(const char *format, int *i)
 **	Return its string representation
 */
 
-char		*get_arg_str(t_spec *spec, va_list *vl)
+static char			*get_arg_str(t_spec *spec, va_list *vl)
 {
 	void		*arg;
 	char		*res;
@@ -57,7 +57,7 @@ char		*get_arg_str(t_spec *spec, va_list *vl)
 	return (error || !(res = apply_spec(res, spec)) ? 0 : res);
 }
 
-void		handle_stupid_c0_special_case(char *s, t_spec spec, int *i)
+static void			handle_stupid_c0_special_case(char *s, t_spec spec, int *i, int fd)
 {
 	int	len;
 
@@ -65,21 +65,21 @@ void		handle_stupid_c0_special_case(char *s, t_spec spec, int *i)
 	s[len - 1] = 0;
 	if (!spec.flag_dash)
 	{
-		ft_putstr(s);
+		ft_putstr_fd(s, fd);
 		*i += ft_strlen(s);
-		ft_putchar('\0');
+		ft_putchar_fd('\0', fd);
 		*i += 1;
 	}
 	else
 	{
-		ft_putchar('\0');
+		ft_putchar_fd('\0', fd);
 		*i += 1;
 		*i += ft_strlen(s);
-		ft_putstr(s);
+		ft_putstr_fd(s, fd);
 	}
 }
 
-int			ft_printf(const char *format, ...)
+int					ft_fprintf(int fd, const char *format, ...)
 {
 	va_list		vl;
 	t_spec		spec;
@@ -88,16 +88,16 @@ int			ft_printf(const char *format, ...)
 
 	i = 0;
 	va_start(vl, format);
-	while ((format = print_until_percent(format, &i)))
+	while ((format = print_until_percent(format, &i, fd)))
 	{
 		format = read_spec(format, &spec);
 		if (!format || !(s = get_arg_str(&spec, &vl)))
 			return (-1);
 		if (spec.stupid_c0_special_case)
-			handle_stupid_c0_special_case(s, spec, &i);
+			handle_stupid_c0_special_case(s, spec, &i, fd);
 		else
 		{
-			ft_putstr(s);
+			ft_putstr_fd(s, fd);
 			i += ft_strlen(s);
 		}
 		free(s);

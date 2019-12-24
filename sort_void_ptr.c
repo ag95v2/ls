@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_void_ptr.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/24 15:08:50 by bgian             #+#    #+#             */
+/*   Updated: 2019/12/24 15:14:03 by bgian            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void	swap(void **a, void **b)
+static void		swap(void **a, void **b)
 {
 	void	*c;
-	
+
 	c = *a;
 	*a = *b;
 	*b = c;
@@ -13,16 +24,16 @@ static void	swap(void **a, void **b)
 **	Orger relation is supposed to be transitive here
 */
 
-static void	**choose_pivot(void **arr, int len, int (*is_greater)(void *, void *))
+static void		**choose_pivot(void **arr, int len,\
+		int (*is_greater)(void *, void *))
 {
 	int	a_b;
 	int	b_c;
 	int	a_c;
-	
-	a_b = is_greater(*arr, *(arr + len / 2));
-	b_c = is_greater(*(arr + len / 2), *(arr + len -1));
-	a_c = is_greater(*arr, *(arr + len - 1));
 
+	a_b = is_greater(*arr, *(arr + len / 2));
+	b_c = is_greater(*(arr + len / 2), *(arr + len - 1));
+	a_c = is_greater(*arr, *(arr + len - 1));
 	if (a_b >= 0 && b_c >= 0)
 		return (arr + len / 2);
 	if (a_c >= 0 && b_c <= 0)
@@ -30,7 +41,8 @@ static void	**choose_pivot(void **arr, int len, int (*is_greater)(void *, void *
 	return (arr);
 }
 
-static void	**place_pivot(void **arr, int len, int (*is_greater)(void *, void *), void **pivot)
+static void		**place_pivot(void **arr, int len,\
+		int (*is_greater)(void *, void *), void **pivot)
 {
 	int		i;
 	int		n_below_pivot;
@@ -55,7 +67,8 @@ static void	**place_pivot(void **arr, int len, int (*is_greater)(void *, void *)
 **	Cmp returns positive int if first arg is greater
 */
 
-void	qsort_void_ptr(void **arr, int len, int (*is_greater)(void *, void *))
+void			qsort_void_ptr(void **arr, int len,\
+		int (*is_greater)(void *, void *))
 {
 	void	**pivot;
 

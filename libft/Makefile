@@ -21,7 +21,7 @@ ft_bbtree_utils.c get_next_line.c ft_itoa_base.c ft_strrev.c $(D_PR)/apply_spec.
 $(D_PR)/apply_spec2.c $(D_PR)/apply_spec3.c $(D_PR)/apply_spec4.c $(D_PR)/apply_spec5.c $(D_PR)/apply_spec6.c \
 $(D_PR)/arg_extractors.c $(D_PR)/arg_extractors2.c $(D_PR)/conv_int.c $(D_PR)/conv_int2.c $(D_PR)/conv_other.c \
 $(D_PR)/conv_wrappers_int.c $(D_PR)/conv_wrappers_int2.c $(D_PR)/conv_wrappers_other.c $(D_PR)/find_action.c \
-$(D_PR)/printf.c $(D_PR)/read_spec.c $(D_PR)/read_spec2.c $(D_FT)/decimal_arithmetic.c $(D_FT)/decimal_arithmetic2.c \
+$(D_PR)/printf.c $(D_PR)/fprintf.c  $(D_PR)/read_spec.c $(D_PR)/read_spec2.c $(D_FT)/decimal_arithmetic.c $(D_FT)/decimal_arithmetic2.c \
 $(D_FT)/decimal_arithmetic3.c $(D_FT)/decimal_arithmetic4.c $(D_FT)/decimal_arithmetic5.c $(D_FT)/ftoa.c $(D_FT)/ftoa2.c 
 endef
 

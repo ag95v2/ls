@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   comparators.h                                      :+:      :+:    :+:   */
+/*   print_n_spaces.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/24 16:23:55 by bgian             #+#    #+#             */
-/*   Updated: 2019/12/24 16:23:59 by bgian            ###   ########.fr       */
+/*   Created: 2019/12/24 15:32:32 by bgian             #+#    #+#             */
+/*   Updated: 2019/12/24 15:34:21 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPARATORS_H
-#define COMPARATORS_H
-
-#include "filesort.h"
 #include "libft.h"
 
-t_cmpf	choose_comparator(t_flags flags);
+/*
+**	Horrible piece of shit
+*/
 
-#endif
+void		print_n_spaces(int n)
+{
+	if (n <= 0)
+		return ;
+	while (n--)
+		ft_putchar(' ');
+}

@@ -62,14 +62,14 @@ int		fill_owner_group(struct stat sb, t_file_info *fi)
 	fi->owner = ft_strdup(pwuser->pw_name);
 	if (!fi->owner)
 	{
-		ft_printf("%s\n", strerror(errno)); //to stderr
+		ft_fprintf(2, "%s\n", strerror(errno)); 
 		return (1);
 	}
 	fi->group = ft_strdup(grpnam->gr_name);
 	if (!fi->group)
 	{
 		free(fi->owner);
-		ft_printf("%s\n", strerror(errno)); //to stderr
+		ft_fprintf(2, "%s\n", strerror(errno));
 		return (1);
 	}
 	return (0);
@@ -169,7 +169,7 @@ char	*follow_symlink(struct stat *sb, char *path)
 		return (0);
 	if ((nbytes = readlink(path, name, size)) == -1)
 	{
-		ft_printf("ls: cannot access '%s': %s\n", strerror(errno), path); // To stderr not stdout!
+		ft_fprintf(2, "ls: cannot access '%s': %s\n", strerror(errno), path);
 		return (0);
 	}
 	name[nbytes] = 0;

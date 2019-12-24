@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_dir_listing.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/24 15:21:28 by bgian             #+#    #+#             */
+/*   Updated: 2019/12/24 15:47:46 by bgian            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <dirent.h>
 #include "file_info.h"
 #include <errno.h>
@@ -5,28 +17,6 @@
 #include "libft.h"
 #include "filesort.h"
 #include "print_utils.h"
-
-/*
-**	Result is to be freed
-*/
-
-char	*path_append(char *path, char *name)
-{
-	char	*new;
-	char	*start;
-
-	if (!(new = malloc(ft_strlen(path) + ft_strlen(name) + 2)))
-		return (0);
-	start = new;
-	while (*path)
-		*new++ = *path++;
-	if (*(new - 1) != '/')
-		*new++ = '/';
-	while (*name)
-		*new++ =*name++;
-	*new = 0;
-	return (start);
-}
 
 static t_stats	*cleanup(t_stats *res, char *path)
 {
@@ -39,7 +29,7 @@ t_stats			*parse_dir(t_flags flags, DIR *d, char *path)
 {
 	t_stats			*res;
 	char			*total_path;
-    struct dirent	*dir;
+	struct dirent	*dir;
 
 	if (!(res = (t_stats *)ft_memalloc(sizeof(t_stats))))
 		return (0);
@@ -50,7 +40,7 @@ t_stats			*parse_dir(t_flags flags, DIR *d, char *path)
 		if (!(total_path = ft_strcmp(path, ".") ?\
 				path_append(path, dir->d_name) : dir->d_name) ||\
 				push(res, total_path) == critical)
-				return (cleanup(res, total_path));
+			return (cleanup(res, total_path));
 		if (ft_strcmp(path, "."))
 			free(total_path);
 	}
@@ -58,7 +48,7 @@ t_stats			*parse_dir(t_flags flags, DIR *d, char *path)
 	return (res);
 }
 
-void	print_subdirs(t_flags flags, t_stats *stats, char *path)
+void			print_subdirs(t_flags flags, t_stats *stats, char *path)
 {
 	t_list	*current;
 	char	*new_path;
@@ -68,14 +58,16 @@ void	print_subdirs(t_flags flags, t_stats *stats, char *path)
 	while (current)
 	{
 		p = ((t_path_stat *)current->content)->path;
-		if (!ft_strcmp(start_of_name(p), "..") || !ft_strcmp(start_of_name(p), "."))
+		if (!ft_strcmp(start_of_name(p), "..") ||\
+				!ft_strcmp(start_of_name(p), "."))
 		{
 			current = current->next;
 			continue ;
 		}
-		if (!(new_path = path_append(path, ((t_path_stat *)current->content)->path)))
+		if (!(new_path = path_append(path,\
+						((t_path_stat *)current->content)->path)))
 		{
-			ft_printf("%s\n", "Memory error"); //to stdout
+			ft_fprintf(2, "%s\n", "Memory error");
 			return ;
 		}
 		print_dir_listing(flags, p, 1);
@@ -84,7 +76,7 @@ void	print_subdirs(t_flags flags, t_stats *stats, char *path)
 	}
 }
 
-t_file_info **get_dir_fileinfo(t_stats *stats, int *len)
+t_file_info		**get_dir_fileinfo(t_stats *stats, int *len)
 {
 	t_file_info	**res;
 	int			i;
@@ -100,51 +92,17 @@ t_file_info **get_dir_fileinfo(t_stats *stats, int *len)
 	return (res);
 }
 
-int	total_blocks(t_stats *stats)
+void			print_dir_listing(t_flags flags, char *path, int dname_needed)
 {
-	int		i;
-	t_list	*current;
-
-	i = 0;
-	current = stats->files;
-	while (current)
-	{
-		i += ((t_path_stat *)current->content)->sb->st_blocks;
-		current = current->next;
-	}
-	current = stats->dirs;
-	while (current)
-	{
-		i += ((t_path_stat *)current->content)->sb->st_blocks;
-		current = current->next;
-	}
-	return (i);
-}
-
-/*
-**	Leading newline is printed only once
-*/
-
-void	print_dirname(char *path)
-{
-	static int	leading_newline;
-
-	if (leading_newline)
-		ft_printf("%c", '\n');
-	ft_printf("%s:\n", path);
-	leading_newline = 1;
-}
-
-void	print_dir_listing(t_flags flags, char *path, int dname_needed)
-{
-    DIR				*d;
+	DIR				*d;
 	t_stats			*stats;
 	t_file_info		**info;
 	int				len;
 
-    if (!(d = opendir(path)))
+	if (!(d = opendir(path)))
 	{
-		ft_printf("ls: cannot open directory '%s': %s\n", path, strerror(errno)); //To Stderr
+		ft_fprintf(2, "ls: cannot open directory '%s': %s\n",\
+				path, strerror(errno));
 		return ;
 	}
 	if (!(stats = parse_dir(flags, d, path)))

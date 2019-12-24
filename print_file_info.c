@@ -1,20 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_file_info.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/24 15:27:03 by bgian             #+#    #+#             */
+/*   Updated: 2019/12/24 15:40:16 by bgian            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "offsets.h"
 #include "file_info.h"
 #include "colors.h"
 #include "print_utils.h"
-
-/*
-**	Horrible piece of shit
-*/
-
-void	print_n_spaces(int n)
-{
-	if (n <= 0)
-		return ;
-	while (n--)
-		ft_putchar(' ');
-}
+#include "print_n_spaces.h"
 
 /*
 **	Because we have no %* in printf
@@ -35,7 +36,7 @@ static void	offs_crutch(int is_int, void *arg, int offset)
 	}
 }
 
-char	*start_of_name(char *path)
+char		*start_of_name(char *path)
 {
 	char	*res;
 	char	*current;
@@ -53,10 +54,11 @@ char	*start_of_name(char *path)
 	return (res);
 }
 
-int		print_single_file_l(t_flags flags, t_file_info *fi, t_offsets *offs, int only_name)
+int			print_single_file_l(t_flags flags, \
+		t_file_info *fi, t_offsets *offs, int only_name)
 {
 	ft_printf("%c", fi->type);
-	ft_printf("%s",fi->perms);
+	ft_printf("%s", fi->perms);
 	offs_crutch(1, &(fi->nlinks), offs->n_links);
 	offs_crutch(0, &(fi->owner), offs->owner);
 	offs_crutch(0, &(fi->group), offs->group);
@@ -69,7 +71,7 @@ int		print_single_file_l(t_flags flags, t_file_info *fi, t_offsets *offs, int on
 	else
 		offs_crutch(1, &(fi->size), offs->size);
 	ft_putchar(' ');
-	ft_printf("%s ",fi->date);
+	ft_printf("%s ", fi->date);
 	if (flags.color)
 		set_color(fi);
 	ft_printf("%s", only_name ? start_of_name(fi->pathname) : fi->pathname);
@@ -81,7 +83,19 @@ int		print_single_file_l(t_flags flags, t_file_info *fi, t_offsets *offs, int on
 	return (0);
 }
 
-void	print_list_files(t_flags flags, t_file_info **fi, int len, int only_name)
+void		print_single_file_s(t_flags flags, t_file_info **fi, int i,\
+		int only_name)
+{
+	if (flags.color)
+		set_color(fi[i]);
+	ft_printf("%s\n", only_name ? \
+			start_of_name(fi[i]->pathname) : fi[i]->pathname);
+	if (flags.color)
+		reset_color();
+}
+
+void		print_list_files(t_flags flags, t_file_info **fi,\
+		int len, int only_name)
 {
 	int			i;
 	t_offsets	offs;
@@ -100,14 +114,7 @@ void	print_list_files(t_flags flags, t_file_info **fi, int len, int only_name)
 			continue ;
 		if (flags.long_format)
 			print_single_file_l(flags, fi[i], &offs, only_name);
-		else 
-		{
-			if (flags.color)
-				set_color(fi[i]);
-			ft_printf("%s\n", only_name ? start_of_name(fi[i]->pathname) : fi[i]->pathname);
-			if (flags.color)
-				reset_color();
-
-		}
+		else
+			print_single_file_s(flags, fi, i, only_name);
 	}
 }

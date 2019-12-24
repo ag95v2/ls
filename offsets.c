@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   offsets.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/24 16:30:45 by bgian             #+#    #+#             */
+/*   Updated: 2019/12/24 16:38:37 by bgian            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "offsets.h"
 #include "libft.h"
 
@@ -31,6 +43,14 @@ int		ndigits_int(int num)
 	return (count);
 }
 
+void	device_offs(t_file_info **info, t_offsets *offs, int i)
+{
+	if (ndigits_int(info[i]->major) + 1 > offs->major)
+		offs->major = ndigits_int(info[i]->major) + 1;
+	if (ndigits_int(info[i]->minor) + 1 > offs->minor)
+		offs->minor = ndigits_int(info[i]->minor) + 1;
+}
+
 void	fill_offsets(t_offsets *offs, t_file_info **info, int len)
 {
 	int	i;
@@ -48,12 +68,7 @@ void	fill_offsets(t_offsets *offs, t_file_info **info, int len)
 		if (s_len(info[i]->group) + 1 > offs->group)
 			offs->group = ft_strlen(info[i]->group) + 1;
 		if (info[i]->type == 'b' || info[i]->type == 'c')
-		{
-			if (ndigits_int(info[i]->major) + 1 > offs->major)
-				offs->major = ndigits_int(info[i]->major) + 1;
-			if (ndigits_int(info[i]->minor) + 1 > offs->minor)
-				offs->minor = ndigits_int(info[i]->minor) + 1;
-		}
+			device_offs(info, offs, i);
 	}
 	if (offs->minor + offs->major + 1 > offs->size)
 		offs->size = offs->minor + offs->major + 1;

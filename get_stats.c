@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_stats.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/24 15:23:45 by bgian             #+#    #+#             */
+/*   Updated: 2019/12/24 16:19:12 by bgian            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "errors.h"
 #include "file_info.h"
@@ -22,7 +34,7 @@ t_error				add_stat(t_stats *stats, t_path_stat *ps)
 		ft_lstadd(&(stats->files), new);
 		stats->n_files += 1;
 	}
-	return(ok);
+	return (ok);
 }
 
 void				free3(struct stat *a, char *b, t_path_stat *c)
@@ -35,29 +47,29 @@ void				free3(struct stat *a, char *b, t_path_stat *c)
 t_error				push(t_stats *stats, char *path)
 {
 	struct stat	*sb;
-	char		*duplicate_path;
+	char		*d_pth;
 	t_path_stat	*ps;
 
 	sb = NULL;
-	duplicate_path = NULL;
+	d_pth = NULL;
 	ps = NULL;
 	if (!(sb = (struct stat *)ft_memalloc(sizeof(struct stat))) ||\
-		!(duplicate_path = ft_strdup(path)) ||\
+		!(d_pth = ft_strdup(path)) ||\
 		!(ps = (t_path_stat *)malloc(sizeof(t_path_stat))))
 	{
-		free3(sb, duplicate_path, ps);
-		ft_printf("%s\n", "Memory error");// To stderr not stdout!
+		free3(sb, d_pth, ps);
+		ft_fprintf(2, "%s\n", "Memory error");
 		return (critical);
 	}
 	if (lstat(path, sb) == -1)
 	{
-		ft_printf("ls: cannot access '%s': %s\n", strerror(errno), duplicate_path); // To stderr not stdout!
+		ft_fprintf(2, "ls: cannot access '%s': %s\n", strerror(errno), d_pth);
 		stats->n_invalid++;
-		free3(sb, duplicate_path, ps);
+		free3(sb, d_pth, ps);
 		return (not_critical);
 	}
 	ps->sb = sb;
-	ps->path = duplicate_path;
+	ps->path = d_pth;
 	return (add_stat(stats, ps));
 }
 

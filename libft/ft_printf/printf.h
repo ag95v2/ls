@@ -6,7 +6,7 @@
 /*   By: dpenney <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 14:55:09 by dpenney           #+#    #+#             */
-/*   Updated: 2019/12/24 13:56:39 by bgian            ###   ########.fr       */
+/*   Updated: 2019/12/24 14:44:04 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ void				*dummy_extractor(t_spec spec, va_list *vl);
 t_conv_f			*find_action(t_spec spec);
 
 int					ft_printf(const char *format, ...);
+int					ft_fprintf(int fd, const char *format, ...);
 
 #endif
