@@ -6,7 +6,7 @@
 /*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 15:48:47 by bgian             #+#    #+#             */
-/*   Updated: 2019/12/24 16:08:33 by bgian            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:51:21 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@
 
 static void	print(t_flags flags, int len, t_file_info **info, t_pretty_print p)
 {
-	int		i;
-	char	*fmt;
-	char	nbr[12];
+	int			i;
+	char		*fmt;
+	char		*tmp;
+	static char	nbr[12];
 
 	ft_itoa_stack(p.width / p.n_cols, nbr);
-	fmt = ft_strjoin("%-", nbr);
-	fmt = ft_strjoin(fmt, "s");
+	tmp = ft_strjoin("%-", nbr);
+	fmt = ft_strjoin(tmp, "s");
+	free(tmp);
 	i = 0;
 	while (i < len)
 	{
@@ -48,7 +50,6 @@ void		pretty_print(t_flags flags, t_file_info **info, int len)
 	int				i;
 	t_pretty_print	p;
 
-	(void)flags;
 	p.width = n_columns_terminal();
 	sizes = malloc(sizeof(int) * len);
 	if (!sizes)
