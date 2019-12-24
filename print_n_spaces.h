@@ -6,12 +6,12 @@
 /*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 15:32:36 by bgian             #+#    #+#             */
-/*   Updated: 2019/12/24 15:34:20 by bgian            ###   ########.fr       */
+/*   Updated: 2019/12/24 19:46:12 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_N_SPACES
-#define PRINT_N_SPACES
+#ifndef PRINT_N_SPACES_H
+# define PRINT_N_SPACES_H
 
 void		print_n_spaces(int n);
 

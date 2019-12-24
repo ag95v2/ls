@@ -6,7 +6,7 @@
 /*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 16:24:42 by bgian             #+#    #+#             */
-/*   Updated: 2019/12/24 16:30:04 by bgian            ###   ########.fr       */
+/*   Updated: 2019/12/24 18:10:34 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ int		name_is_greater(void *a, void *b)
 	char	*n1;
 	char	*n2;
 
-	n1 = ((t_file_info *)a)->pathname[0] == '.' ?\
-		 ((t_file_info *)a)->pathname + 1 :\
-		 ((t_file_info *)a)->pathname;
+	n1 = ((t_file_info *)a)->pathname[0] == '.' ? \
+			((t_file_info *)a)->pathname + 1 : ((t_file_info *)a)->pathname;
 	n2 = ((t_file_info *)b)->pathname[0] == '.' ?\
-		 ((t_file_info *)b)->pathname + 1 :\
-		 ((t_file_info *)b)->pathname;
+			((t_file_info *)b)->pathname + 1 : ((t_file_info *)b)->pathname;
 	return (case_insensitive_strcmp(n1, n2));
 }
 

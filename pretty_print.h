@@ -1,11 +1,23 @@
-#ifndef PRETTY_PRINT_H
-#define PRETTY_PRINT_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pretty_print.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/24 19:49:52 by bgian             #+#    #+#             */
+/*   Updated: 2019/12/24 19:49:55 by bgian            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "file_info.h"
-#include "pretty_print.h"
-#include <sys/ioctl.h>
-#include "libft.h"
-#include "colors.h"
+#ifndef PRETTY_PRINT_H
+# define PRETTY_PRINT_H
+
+# include "file_info.h"
+# include "pretty_print.h"
+# include <sys/ioctl.h>
+# include "libft.h"
+# include "colors.h"
 
 typedef struct	s_pretty_print
 {

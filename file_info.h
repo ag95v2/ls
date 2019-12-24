@@ -1,20 +1,42 @@
-#ifndef FILE_INFO_H
-#define FILE_INFO_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file_info.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/24 19:42:54 by bgian             #+#    #+#             */
+/*   Updated: 2019/12/24 20:11:04 by bgian            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include "errors.h"
-#include "libft.h"
-#include "parse_flags.h"
+#ifndef FILE_INFO_H
+# define FILE_INFO_H
+
+# include <sys/types.h>
+# include <sys/stat.h>
+# include "errors.h"
+# include "libft.h"
+# include "parse_flags.h"
 
 /*
 **	For mtime
 */
-#if defined(__APPLE__) || defined(__NetBSD__) 
-#define st_atim st_atimespec
-#define st_ctim st_ctimespec
-#define st_mtim st_mtimespec
-#endif
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmacro-redefined"
+
+# define ST_ATIM st_atim
+# define ST_CTIM st_ctim
+# define ST_MTIM st_mtim
+
+# if defined(__APPLE__) || defined(__NetBSD__)
+#  define ST_ATIM st_atimespec
+#  define ST_CTIM st_ctimespec
+#  define ST_MTIM st_mtimespec
+# endif
+
+#pragma GCC diagnostic pop
 
 typedef struct			s_file_info
 {
@@ -67,6 +89,6 @@ char					*start_of_name(char *path);
 t_file_info				*pop_file(t_stats *stats);
 t_file_info				*pop_dir(t_stats *stats);
 
-#define HALF_OF_THE_YEAR 60 * 60 * 24 * 365 / 2
+# define HALF_OF_THE_YEAR 60 * 60 * 24 * 365 / 2
 
 #endif

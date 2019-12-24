@@ -1,7 +1,19 @@
-#ifndef ARG_PARSE_H
-#define ARG_PARSE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_flags.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/24 19:49:04 by bgian             #+#    #+#             */
+/*   Updated: 2019/12/24 19:58:38 by bgian            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PARSE_FLAGS_H
+# define PARSE_FLAGS_H
+
+# include "libft.h"
 
 typedef struct	s_flags
 {
@@ -14,8 +26,8 @@ typedef struct	s_flags
 	int			oneline;
 }				t_flags;
 
-int		is_option_arg(char *arg);
-void	init_flags(t_flags *flags);
-int		read_option_arg(char *arg, t_flags *flags);
+int				is_option_arg(char *arg);
+void			init_flags(t_flags *flags);
+int				read_option_arg(char *arg, t_flags *flags);
 
 #endif
