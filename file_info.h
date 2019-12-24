@@ -6,7 +6,7 @@
 /*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 19:42:54 by bgian             #+#    #+#             */
-/*   Updated: 2019/12/24 20:11:04 by bgian            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:15:02 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 **	For mtime
 */
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wmacro-redefined"
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wmacro-redefined"
 
 # define ST_ATIM st_atim
 # define ST_CTIM st_ctim
@@ -36,7 +36,7 @@
 #  define ST_MTIM st_mtimespec
 # endif
 
-#pragma GCC diagnostic pop
+# pragma GCC diagnostic pop
 
 typedef struct			s_file_info
 {

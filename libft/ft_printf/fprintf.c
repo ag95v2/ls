@@ -6,7 +6,7 @@
 /*   By: dpenney <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 17:03:03 by dpenney           #+#    #+#             */
-/*   Updated: 2019/12/24 14:53:24 by bgian            ###   ########.fr       */
+/*   Updated: 2019/12/24 20:14:24 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static char			*get_arg_str(t_spec *spec, va_list *vl)
 	return (error || !(res = apply_spec(res, spec)) ? 0 : res);
 }
 
-static void			handle_stupid_c0_special_case(char *s, t_spec spec, int *i, int fd)
+static void			handle_stupid_c0_special_case(char *s,\
+		t_spec spec, int *i, int fd)
 {
 	int	len;
 
