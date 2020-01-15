@@ -23,20 +23,20 @@
 **	For mtime
 */
 
-# pragma GCC diagnostic push
-# pragma GCC diagnostic ignored "-Wmacro-redefined"
-
 # define ST_ATIM st_atim
 # define ST_CTIM st_ctim
 # define ST_MTIM st_mtim
 
 # if defined(__APPLE__) || defined(__NetBSD__)
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wmacro-redefined"
+
 #  define ST_ATIM st_atimespec
 #  define ST_CTIM st_ctimespec
 #  define ST_MTIM st_mtimespec
-# endif
 
 # pragma GCC diagnostic pop
+# endif
 
 typedef struct			s_file_info
 {
